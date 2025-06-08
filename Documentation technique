@@ -1,0 +1,67 @@
+# Documentation d’Exploitation – Mini Extranet
+
+## 1. Installation du Serveur Wazuh
+```bash
+curl -sO https://packages.wazuh.com/4.12/wazuh-install.sh
+bash wazuh-install.sh -a
+```
+
+## 2. Déploiement des Agents Wazuh
+
+### Sur Debian/Ubuntu
+```bash
+curl -sO https://packages.wazuh.com/4.7/install.sh
+sudo bash install.sh --agent
+sudo /var/ossec/bin/agent-auth -m 192.168.1.200
+sudo systemctl start wazuh-agent
+```
+
+### Sur pfSense (via Syslog)
+- Aller dans **Status > System Logs > Settings**
+  - Activer Syslog vers `192.168.1.200`
+  - Protocole : UDP ou TCP 514
+
+## 3. Configuration d'OpenVPN sur pfSense
+- **VPN > OpenVPN > Wizards**
+  - Créer CA, certificat serveur
+  - UDP 1194, tunnel 192.168.200.0/24
+- Ajouter règle firewall : autoriser UDP 1194 sur WAN
+- Export clients via **OpenVPN Client Export**
+
+## 4. Portail Captif sur pfSense
+- **Services > Captive Portal**
+  - Zone : LAN
+  - Authentification : Local User Manager ou RADIUS
+  - Page personnalisée : `/usr/local/captiveportal/index.html`
+- Whitelist : Cowmail, Wazuh (par IP/MAC)
+
+## 5. Proxy Squid sur pfSense
+- **Services > Squid Proxy Server**
+  - Mode : Transparent
+  - Port : 3128
+  - ACL : à configurer pour filtrage par IP/Groupe/Regex
+
+## 6. Webmail Cowmail
+
+### Installation
+```bash
+sudo apt update && sudo apt install apache2 php postfix dovecot-imapd dovecot-pop3d -y
+sudo cp cowmail /var/www/html/
+```
+- Configuration : `/var/www/html/cowmail/config.php`
+- Accès via : `http://webmail.projet.local`
+- ⚠️ Limité à LAN/VPN, pas de HTTPS (absence de domaine)
+
+## 7. Sauvegarde / Restauration
+
+### Sauvegarde
+```bash
+tar -czvf backup_$(date +%F).tar.gz /chemin/vers/dossier
+scp -P 2222 backup_*.tar.gz user@commandcenter:/sauvegardes/
+```
+
+### Restauration
+```bash
+scp -P 2222 user@commandcenter:/sauvegardes/backup_DATE.tar.gz .
+tar -xzvf backup_DATE.tar.gz -C /
+```
