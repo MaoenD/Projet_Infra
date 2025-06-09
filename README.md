@@ -27,8 +27,7 @@ Dans le cadre de la mise en place d’un mini extranet sécurisé à but pédago
 | **Webmail**        | Service de messagerie  | Ubuntu     | 192.168.1.106             | Cowmail en HTTP |
 | **Wazuh/Snort**    | SIEM + IDS             | Ubuntu     | 192.168.1.200             | Accès restreint, centralisation des logs |
 
-![image](https://github.com/user-attachments/assets/0c84778c-33a7-4f5b-903a-175abab30c9b)
-
+![image](https://github.com/user-attachments/assets/ae9eb749-5016-48a6-9e15-8a7a2243f366)
 
 ### 1.3 Architecture réseau logique
 
