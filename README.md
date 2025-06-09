@@ -85,8 +85,10 @@ openvpn --config fichier_client.ovpn
 - Les logs par défaut sont collectés (connexion SSH, sudo, accès réseau, erreurs, etc.)
 
 ```
-curl -s https://packages.wazuh.com/ | bash
-sudo /var/ossec/bin/agent-auth -m <ip_manager>
+wget https://packages.wazuh.com/4.x/apt/pool/main/w/wazuh-agent/wazuh-agent_4.12.0-1_amd64.deb && sudo WAZUH_MANAGER='192.168.1.200' dpkg -i ./wazuh-agent_4.12.0-1_amd64.deb
+sudo systemctl daemon-reload
+sudo systemctl enable wazuh-agent
+sudo systemctl start wazuh-agent
 ```
 
 ### 2.3 Configuration du proxy Squid
@@ -109,18 +111,19 @@ sudo /var/ossec/bin/agent-auth -m <ip_manager>
 - Aucune restriction d’accès sur le LAN
 - Accessible également via VPN
 
-### 2.6 Sauvegarde / restauration (générique)
+### 2.6 Sauvegarde / restauration de Cowmail
 
 **Sauvegarde :**
 ```
-tar -czvf backup_$(date +%F).tar.gz /chemin/vers/dossier
-scp -P 2222 backup_*.tar.gz user@commandcenter:/sauvegardes/
+/usr/local/bin/backup_mailcow.sh
+
 ```
+Automatisée via crontab tout les jours à 2h du matin
+![image](https://github.com/user-attachments/assets/37d2fb6e-aaed-4821-9f59-9723ea79d678)
 
 **Restauration :**
 ```
-scp -P 2222 user@commandcenter:/sauvegardes/backup_DATE.tar.gz .
-tar -xzvf backup_DATE.tar.gz -C /
+/usr/local/bin/restore_mailcow.sh
 ```
 
 ## 3. Répartition des Tâches
@@ -128,7 +131,7 @@ tar -xzvf backup_DATE.tar.gz -C /
 | Membre     | Tâches réalisées |
 |------------|------------------|
 | **Gabriel** | Déploiement, configuration et personnalisation du Captive Portal |
-| **Guillaume** | Installation des VM, configuration réseau, déploiement des services (VPN, proxy, webmail, Wazuh, Snort), configuration NAT et filtrage, documentation complète |
+| **Guillaume** | Installation des VM, configuration réseau, déploiement des services (VPN, proxy, webmail, Wazuh, Snort), configuration NAT et filtrage, documentation complète, automatisation de la sauvegarde |
 
 ## 4. Bonnes pratiques mises en œuvre
 
@@ -139,3 +142,4 @@ tar -xzvf backup_DATE.tar.gz -C /
 - Accès à distance uniquement via VPN sécurisé
 - Utilisation de noms locaux (`.local`) pour limiter l’exposition
 - Préparation d’un plan d’extension via la DMZ
+h du matin
