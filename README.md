@@ -130,7 +130,7 @@ Automatisée via crontab tout les jours à 2h du matin
 | Membre     | Tâches réalisées |
 |------------|------------------|
 | **Gabriel** | Déploiement, configuration et personnalisation du Captive Portal |
-| **Guillaume** | Installation des VM, configuration réseau, déploiement des services (VPN, proxy, webmail, Wazuh, Snort), configuration NAT et filtrage, documentation complète, automatisation de la sauvegarde |
+| **Guillaume** | Installation des VM, configuration réseau, déploiement des services (VPN, proxy, webmail, Wazuh, Snort), configuration NAT et filtrage, documentation complète, automatisation de la sauvegarde, documentations |
 
 ## 4. Bonnes pratiques mises en œuvre
 
