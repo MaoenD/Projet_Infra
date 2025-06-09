@@ -12,7 +12,7 @@
 - Saisir vos identifiants (fournis par l’administrateur).
 - Une fois authentifié, vous accédez à Internet et aux services internes autorisés.
 
-ℹ️ En cas de blocage, contactez l'administrateur réseau.
+ℹEn cas de blocage, contactez l'administrateur réseau.
 
 ### 1.3 Création d’un compte utilisateur sur le Portail Captif (CommandCenter)
 1. Accéder à pfSense via l’interface web : `https://192.168.1.1`
@@ -98,7 +98,70 @@ openvpn --config fichier_client.ovpn
 - Login /mot de passe requis.
 ---
 
-## 6. Bonnes Pratiques Utilisateur
+## 6. Sauvegarde et restauration automatisées — Mailcow
+
+Le système met en place une stratégie de sauvegarde et de restauration. Deux scripts sont utilisés :
+
+- `/usr/local/bin/backup_mailcow.sh` : effectue la sauvegarde
+- `/usr/local/bin/restore_mailcow.sh` : gère la restauration
+
+### 6.1 Sauvegarde quotidienne automatisée
+
+Le script de sauvegarde est exécuté automatiquement chaque jour à **03h00** via une tâche `cron`. Pour modifier l'heure de déclenchement, éditez la crontab avec :
+
+```bash
+crontab -e
+```
+
+Et modifiez la ligne suivante selon vos besoins :
+
+```cron
+0 3 * * * /usr/local/bin/backup_mailcow.sh
+```
+
+- Rotation automatique : suppression des fichiers de plus de **2 jours** sur le serveur distant
+
+Tous les événements sont journalisés dans :
+
+```
+/var/log/mailcow_backup.log
+```
+
+### 6.2 Personnalisation du script de sauvegarde
+
+Le script est situé ici :
+```
+/usr/local/bin/backup_mailcow.sh
+```
+
+Pour ajouter d'autres fichiers ou répertoires à sauvegarder :
+1. Ouvrez le script avec un éditeur :
+   ```bash
+   sudo nano /usr/local/bin/backup_mailcow.sh
+   ```
+2. Ajoutez une ligne `tar` ou `scp` avec le chemin souhaité
+3. Par exemple, pour sauvegarder `/opt/certificats` :
+   ```bash
+   tar -czf /tmp/certs.tar.gz /opt/certificats
+   scp /tmp/certs.tar.gz backup1@192.168.1.201:/srv/backup1/autres/
+   ```
+
+### 6.3 Restauration manuelle avec confirmation
+
+Le script de restauration est à lancer manuellement :
+```bash
+/usr/local/bin/restore_mailcow.sh
+```
+
+Il demande une **confirmation `[y/N]`** avant de procéder
+
+Écrit tous les journaux dans :
+
+```
+/var/log/mailcow_restore.log
+```
+
+## 7. Bonnes Pratiques Utilisateur
 - Ne partagez jamais vos identifiants.
 - Déconnectez-vous des sessions VPN et Webmail après usage.
 - Ne tentez pas d'accéder à des services restreints.
