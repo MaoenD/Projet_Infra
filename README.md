@@ -142,4 +142,4 @@ Automatisée via crontab tout les jours à 2h du matin
 - Accès à distance uniquement via VPN sécurisé
 - Utilisation de noms locaux (`.local`) pour limiter l’exposition
 - Préparation d’un plan d’extension via la DMZ
-h du matin
+- Mise en place d'une sauvegarde tout les jours à 2h du matin
