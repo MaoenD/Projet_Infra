@@ -107,7 +107,7 @@ Le système met en place une stratégie de sauvegarde et de restauration. Deux s
 
 ### 6.1 Sauvegarde quotidienne automatisée
 
-Le script de sauvegarde est exécuté automatiquement chaque jour à **03h00** via une tâche `cron`. Pour modifier l'heure de déclenchement, éditez la crontab avec :
+Le script de sauvegarde est exécuté automatiquement chaque jour à **02h00** via une tâche `cron`. Pour modifier l'heure de déclenchement, éditez la crontab avec :
 
 ```bash
 crontab -e
@@ -116,7 +116,7 @@ crontab -e
 Et modifiez la ligne suivante selon vos besoins :
 
 ```cron
-0 3 * * * /usr/local/bin/backup_mailcow.sh
+0 2 * * * /usr/local/bin/backup_mailcow.sh
 ```
 
 - Rotation automatique : suppression des fichiers de plus de **2 jours** sur le serveur distant
@@ -166,5 +166,6 @@ Il demande une **confirmation `[y/N]`** avant de procéder
 - Déconnectez-vous des sessions VPN et Webmail après usage.
 - Ne tentez pas d'accéder à des services restreints.
 - Contactez l'administrateur en cas de doute ou problème technique.
+- N’utilisez le compte root que si cela est strictement nécessaire et avec autorisation
 
 ---
