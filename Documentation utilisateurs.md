@@ -2,7 +2,7 @@
 
 ## 1. Connexion au réseau interne
 
-### 1.1 Connexion au vds
+### 1.1 Connexion au VDS
 - connexion via lien fourni
 - Entrer les credentials founis
 
