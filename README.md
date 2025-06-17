@@ -131,13 +131,13 @@ Automatisée via crontab tout les jours à 2h du matin
 | Membre     | Tâches réalisées |
 |------------|------------------|
 | **Gabriel** | Déploiement, configuration et personnalisation du Captive Portal |
-| **Guillaume** | Installation des VM, configuration réseau, déploiement des services (VPN, proxy, webmail, Wazuh, Snort), configuration NAT et filtrage, documentation complète, automatisation de la sauvegarde, documentations |
+| **Guillaume** | Installation des VM, configuration réseau, déploiement des services (VPN, proxy, webmail, Wazuh, Snort), configuration NAT et filtrage, automatisation de la sauvegarde et restauration, documentation complète |
 
 ## 4. Bonnes pratiques mises en œuvre
 
 - Séparation des interfaces réseau (WAN, LAN, DMZ)
-- Restriction d’accès stricte aux services critiques (Snort, Wazuh, pfSense)
-- Journalisation centralisée de tous les événements
+- Restriction d’accès stricte aux services critiques (Snort, Wazuh, pfSense, backup)
+- Journalisation centralisée de tous les événements sur wazuh
 - Utilisation de ports non standards (SSH sur 2222)
 - Accès à distance uniquement via VPN sécurisé
 - Utilisation de noms locaux (`.local`) pour limiter l’exposition
