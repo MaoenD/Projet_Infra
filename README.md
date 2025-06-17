@@ -26,6 +26,7 @@ Dans le cadre de la mise en place d’un mini extranet sécurisé à but pédago
 | **Command Center** | Poste d'administration | Kali Linux | 192.168.1.100             | Accès complet (Wazuh, pfSense, Snort) |
 | **Webmail**        | Service de messagerie  | Ubuntu     | 192.168.1.106             | Cowmail en HTTP |
 | **Wazuh/Snort**    | SIEM + IDS             | Ubuntu     | 192.168.1.200             | Accès restreint, centralisation des logs |
+| **Save**            | Sauvegarde et restauration| Ubuntu | 192.168.1.50              | Accès restreint et connexion SSH au webmail |
 
 ![image](https://github.com/user-attachments/assets/ae9eb749-5016-48a6-9e15-8a7a2243f366)
 
